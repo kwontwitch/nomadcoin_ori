@@ -64,12 +64,26 @@ const parseData = data => {
   }
 };
 
+// 포트 3000이 4000과 연결될 때
+// 메시지 ws.on이 몇번 동작하는지 파악하기 위한 var.
+var count = 1;
+
 const handleSocketMessages = ws => {
-  ws.on("message", data => {
+    ws.on("message", data => {
+    
+    console.log(`init 때 몇 번 동작하는가 ? : ${count++}`);
     const message = parseData(data);
+    // initSocketMessage(ws)을 통해 여기로 들어오게 된다. 
+    // 이 때, data는 아직 들어오지 않았다.
+    // message는 null이 될 것이다.
+    // 메시지 이벤트가 등록만 되고, 실행은 되지 않고 끝나게 된다. 
     if (message === null) {
       return;
     }
+    // initSocketMessage(ws)에는 
+    // 또한 sendMessage(ws, getLatest());가 있다.
+    // 이를 통해, 메시지 이벤트가 동작할 것이다.
+    // var count는 2가 된다.
     console.log(message);
     switch (message.type) {
       case GET_LATEST:
