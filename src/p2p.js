@@ -74,7 +74,10 @@ const handleSocketMessages = ws => {
 };
 
 const sendMessage = (ws, message) => ws.send(JSON.stringify(message));
-
+// send를 통해 memessage 이벤트를 동작시킨다.
+// 여기서 sendMessage의 message 파라미터는 getLatest(), 즉 GET_LATEST가 된다.
+// initSocketConnection으로 처음 연결될 때 서버와 클라이언트 둘 모두, getLatest() 작업을 수행하게 설정되어 있다.
+// POST http://localhost:3000/peer 으로 여기까지 오게 되는 것이다.
 const handleSocketError = ws => {
   const closeSocketConnection = ws => {
     ws.close();
