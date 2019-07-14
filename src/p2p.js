@@ -61,8 +61,9 @@ const initSocketConnection = ws => {
   handleSocketMessages(ws);
   handleSocketError(ws);
   sendMessage(ws, getLatest());
-  // 단순히 상대방의 최신 블록을 터미널 콘솔로 나타내는게 아니라
-  // 자신의 최신 블록으로 저장까지 한다.
+  // 상대 포트에 최신 블록을 꺼내 달라는 메시지를 보낸다. (요청)
+  // 그러면 상대 포트는 
+  // sendMessage(ws, responseLatest()) 코드를 통해 최신 블록 메시지를 보낸다. (답변)
 };
 
 const parseData = data => {
